@@ -4,39 +4,48 @@ import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import Dialogs from './components/Dialogs/Dialogs';
-import {Route} from 'react-router-dom';
+import {HashRouter, Route} from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {RootStateType} from "./redux/state";
+import {ActionType, StoreType} from "./redux/state";
 
 export type AppPropsType = {
-    state: RootStateType
+    store: StoreType
     addPost: () => void
     updateNewPostText: (newText: string) => void
 }
 
-const App: React.FC<AppPropsType> = (props) => {
+type  PropsType = {
+    store: StoreType
+    dispatch: (action: ActionType) => void
+}
+
+const App: React.FC<PropsType> = (props) => {
+    const state = props.store.getState()
 
     return (
-        <div className='app-wrapper'>
-            <Header/>
-            <Navbar/>
-            <div className='app-wrapper-content'>
-                <Route path='/dialogs'
-                       render={() => <Dialogs dialogsPage={props.state.dialogsPage}/>}/>
-                <Route path='/profile'
-                       render={() => <Profile
-                           profilePage={props.state.profilePage}
-                           addPost={props.addPost}
-                           updateNewPostText={props.updateNewPostText}
-                       />}/>
+        <HashRouter>
+            <div className='app-wrapper'>
+                <Header/>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Route path='/dialogs'
+                           render={() => <Dialogs
+                               dialogsPage={state.dialogsPage}/>}/>
+                    <Route path='/profile'
+                           render={() => <Profile
+                               profilePage={state.profilePage}
+                               dispatch={props.dispatch}
+                           />}/>
 
-                <Route path='/news' render={() => <News/>}/>
-                <Route path='/music' render={() => <Music/>}/>
-                <Route path='/settings' render={() => <Settings/>}/>
+                    <Route path='/news' render={() => <News/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
+                </div>
             </div>
-        </div>);
+        </HashRouter>
+    );
 }
 
 export default App;
