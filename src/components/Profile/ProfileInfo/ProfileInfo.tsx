@@ -5,7 +5,7 @@ const ProfileInfo = () => {
     return (
         <div>
             <div>
-                <img src='https://www.rtflash.fr/sites/default/files/quelle_est_la_bonne_vitesse_dexpansion_de_lunivers.png'/>
+                <img src='https://cdn.shortpixel.ai/spai/w_1024+q_glossy+ret_img+to_webp/https://wondersoftibet.com/wp-content/uploads/2018/10/Mount-Everest-view-from-Tibet-1024x249.jpg'/>
             </div>
             <div className={s.descriptionBlock}>
                 ava + description

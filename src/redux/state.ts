@@ -11,42 +11,80 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export type profilePageType = {
+export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
-export type dialogPageType = {
+export type DialogPageType = {
+    newMessageBody: string
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
-export type SidebarType = {}
-
-export type RootStateType = {
-    profilePage: profilePageType
-    dialogsPage: dialogPageType
-    sideBar: SidebarType
+export type FriendsType = {
+    id: number
+    name: string
 }
+export type SidebarType = {
+    sidebar: SidebarFriends
+}
+export type SidebarFriends = {
+    friends: Array<FriendsType>
+}
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogPageType
+    sidebar: SidebarFriends
+}
+
 
 export type StoreType = {
     _state: RootStateType
-    updateNewPostText: (newText: string) => void
-    addPost: () => void
     _callSubscriber: () => void
+    //updateNewPostText: (newText: string) => void
+    //addPost: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionsType) => void
 }
 
-type AddPodtActionType = {
-    type: 'ADD-POST',
-    postText: string
+type AddPostActionType = ReturnType<typeof addPostActionCreator>
+type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
+type AddMessageActionType = ReturnType<typeof sendMessageAC>
+type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
+
+export type ActionsType =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | AddMessageActionType
+    | UpdateNewDialogMessageActionType
+
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
+const SEND_MESSAGE = 'SEND_MESSAGE'
+
+export const addPostActionCreator = (postText: string) => {
+    return {type: ADD_POST, postText: postText} as const
 }
-type  UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT',
-    newText: string
+export const updateNewPostTextActionCreator = (postText: string) => {
+    return {type: UPDATE_NEW_POST_TEXT, newText: postText} as const
+}
+export const sendMessageAC = () => {
+    return {type: SEND_MESSAGE} as const
+}
+export const updateNewMessageBodyAC = (messageText: string) => {
+    return {type: UPDATE_NEW_MESSAGE_BODY, newText: messageText} as const
 }
 
-export type ActionType = AddPodtActionType | UpdateNewPostTextActionType
+// type AddPostActionType = {
+//     type: 'ADD-POST',
+//     postText: string
+// }
+//
+// type  UpdateNewPostTextActionType = {
+//     type: 'UPDATE-NEW-POST-TEXT',
+//     newText: string
+// }
 
 export let store: StoreType = { //OOP
     _state: {
@@ -55,11 +93,10 @@ export let store: StoreType = { //OOP
             posts: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 12},
                 {id: 2, message: 'It\'s my first post', likesCount: 11},
-                {id: 2, message: 'bla bla', likesCount: 11},
-                {id: 2, message: 'da da ', likesCount: 11},
             ],
         },
         dialogsPage: {
+            newMessageBody: '',
             dialogs: [
                 {id: 1, name: 'Dimych'},
                 {id: 2, name: 'Andrey'},
@@ -73,39 +110,29 @@ export let store: StoreType = { //OOP
                 {id: 3, message: 'Yo'},
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'},
-            ]
+            ],
         },
-        sideBar: {}
+        sidebar: {
+            friends: [
+                {id: 1, name: 'Max'},
+                {id: 2, name: 'Igor'},
+                {id: 3, name: 'Alex'},
+            ]
+        }
     },
     _callSubscriber() {
         console.log('State changed')
     },
-
     getState() {
         return this._state
     },
-    subscribe(observer) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer //(observer(callback) - наблюдатель) - это паттерн
     },
 
-    addPost() {
-        const newPost: PostType = {
-            id: new Date().getTime(),
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber()
-    },
-
     //dispatch action - отправить обьект (действие)
-    dispatch(action) { // { type: 'ADD-POST' }
-        if (action.type === 'ADD-POST') {
+    dispatch(action) {
+        if (action.type === ADD_POST) {
             const newPost: PostType = {
                 id: new Date().getTime(),
                 message: action.postText,
@@ -114,8 +141,16 @@ export let store: StoreType = { //OOP
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
+            this._callSubscriber()
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogsPage.newMessageBody = action.newText
+            this._callSubscriber()
+        } else if (action.type === SEND_MESSAGE) {
+            let body = this._state.dialogsPage.newMessageBody
+            this._state.dialogsPage.newMessageBody = ''
+            this._state.dialogsPage.messages.push({id: 6, message: body})
             this._callSubscriber()
         }
     }

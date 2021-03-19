@@ -1,15 +1,16 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionType, PostType} from "../../../redux/state";
+import {ActionsType, addPostActionCreator, PostType, updateNewPostTextActionCreator} from "../../../redux/state";
 
 type MyPostsPropsType = {
     posts: Array<PostType>
     newPostText: string
     // addPost: () => void
     // updateNewPostText: (newText: string) => void
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionsType) => void
 }
+
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const postsElement = props.posts.map(p =>
@@ -20,19 +21,21 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     //let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
-        props.dispatch({type: 'ADD-POST', postText: props.newPostText})
+        // props.dispatch({type: 'ADD-POST', postText: props.newPostText})
+        props.dispatch(addPostActionCreator(props.newPostText))
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text});
+        props.dispatch(updateNewPostTextActionCreator(text));
+        // props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text});
         // const action = {type: 'UPDATE-NEW-POST-TEXT', newText: text};
         // props.dispatch(action);
     }
 
     return (
         <div className={s.postsBlock}>
-            <h3>my posts</h3>
+            <h3>My Posts</h3>
             <div>
                 <div>
                     <textarea onChange={onPostChange}
