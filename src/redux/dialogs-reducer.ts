@@ -4,6 +4,9 @@ import {ActionsType, DialogPageType} from "./store";
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 const SEND_MESSAGE = 'SEND_MESSAGE'
 
+export type AddMessageActionType = ReturnType<typeof sendMessageAC>
+export type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
+
 let initialState: DialogPageType = {
     newMessageBody: "",
     dialogs: [

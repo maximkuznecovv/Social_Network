@@ -3,20 +3,22 @@ import './App.css';
 import Header from './components/Header/Header';
 import {Sidebar} from './components/Sidebar/Sidebar';
 import Profile from './components/Profile/Profile';
-import Dialogs from './components/Dialogs/Dialogs';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import {HashRouter, Route} from 'react-router-dom';
 import {ActionsType, StoreType} from "./redux/store";
+import {store} from "./redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-export type AppPropsType = {
-    store: StoreType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-}
+// export type AppPropsType = {
+//     store: StoreType
+//     addPost: () => void
+//     updateNewPostText: (newText: string) => void
+// }
 
-type  PropsType = {
+export type  PropsType = {
+    //store: typeof store
     store: StoreType
     dispatch: (action: ActionsType) => void
 }
@@ -31,15 +33,10 @@ const App: React.FC<PropsType> = (props) => {
                 <Sidebar sidebar={state.sidebar}/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <Dialogs
-                               dialogsPage={state.dialogsPage}
-                               dispatch={props.dispatch}
+                           render={() => <DialogsContainer store={props.store}
                            />}/>
                     <Route path='/profile'
-                           render={() => <Profile
-                               profilePage={state.profilePage}
-                               dispatch={props.dispatch}
-                           />}/>
+                           render={() => <Profile store={props.store}/>}/>
 
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>

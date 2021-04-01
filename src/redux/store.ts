@@ -1,5 +1,7 @@
-import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "./profile-reducer";
-import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+//import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "./profile-reducer";
+//import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
+import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
 export type MessageType = {
@@ -15,7 +17,7 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export type ProfilePageType = {
+export type ProfilePostType = {
     posts: Array<PostType>
     newPostText: string
 }
@@ -32,7 +34,7 @@ export type SidebarType = {
     friends: Array<FriendsType>
 }
 export type RootStateType = {
-    profilePage: ProfilePageType
+    profilePage: ProfilePostType
     dialogsPage: DialogPageType
     sidebar: SidebarType
 }
@@ -48,10 +50,6 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 
-type AddPostActionType = ReturnType<typeof addPostActionCreator>
-type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
-type AddMessageActionType = ReturnType<typeof sendMessageAC>
-type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
 
 export type ActionsType = AddPostActionType
     | UpdateNewPostTextActionType

@@ -1,31 +1,35 @@
-import React, {ChangeEvent} from 'react'
-import s from './Dialogs.module.css'
+import React, {ChangeEvent} from "react"
+import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
-import Message from './Message/Message';
-import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
-import {ActionsType, DialogPageType} from '../../redux/store';
+import Message from "./Message/Message";
+import {DialogPageType} from "../../redux/store";
+//import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
+//import {ActionsType, DialogPageType} from '../../redux/store';
 
 
-type DialogPropsType = {
-    dialogsPage: DialogPageType
-    dispatch: (action: ActionsType) => void
+type PropsType = {
+    //dialogsPage: DialogPageType
+    //dispatch: (action: ActionsType) => void
+    updateNewMessageBody: (value: string) => void
+    onSendMessage: () => void
+    state: DialogPageType
 }
 
-const Dialogs: React.FC<DialogPropsType> = (props) => {
+const Dialogs: React.FC<PropsType> = (props) => {
+    const state = props.state
 
-    const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>);
-    const messageElements = props.dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>);
-    const newMessageBody = props.dialogsPage.newMessageBody
+    const dialogsElements = state.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>);
+    const messageElements = state.messages.map(m => <Message key={m.id} message={m.message}/>);
+    const newMessageBody = state.newMessageBody
+
 
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageAC())
+        props.onSendMessage()
     }
-
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const body = e.currentTarget.value
-        props.dispatch(updateNewMessageBodyAC(body))
+        props.updateNewMessageBody(body)
     }
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
