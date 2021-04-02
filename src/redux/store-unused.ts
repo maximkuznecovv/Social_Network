@@ -1,62 +1,58 @@
-//import {addPostActionCreator, profileReducer, updateNewPostTextAC} from "./profile-reducer";
-//import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
 import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
-export type MessageType = {
+ type MessageType = {
     id: number
     message: string
 }
-export type DialogType = {
+ type DialogType = {
     id: number
     name: string
 }
-export type PostType = {
+ type PostType = {
     id: number
     message: string
     likesCount: number
 }
-export type ProfilePostType = {
+ type ProfilePostType = {
     posts: Array<PostType>
     newPostText: string
 }
-export type DialogPageType = {
+ type DialogsPropsType = {
     newMessageBody: string
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
-export type FriendsType = {
+ type FriendsType = {
     id: number
     name: string
 }
-export type SidebarType = {
+ type SidebarType = {
     friends: Array<FriendsType>
 }
-export type RootStateType = {
+ type RootStateType = {
     profilePage: ProfilePostType
-    dialogsPage: DialogPageType
+    dialogsPage: DialogsPropsType
     sidebar: SidebarType
 }
 
 
-export type StoreType = {
+ type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
-    //updateNewPostText: (newText: string) => void
-    //addPost: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionsType) => void
 }
 
 
-export type ActionsType = AddPostActionType
+ type ActionsType = AddPostActionType
     | UpdateNewPostTextActionType
     | AddMessageActionType
     | UpdateNewDialogMessageActionType
 
-export let store: StoreType = { //OOP
+ let storeUnused: StoreType = { //OOP
     _state: {
         profilePage: {
             newPostText: "",
