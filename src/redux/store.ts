@@ -1,4 +1,4 @@
-//import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "./profile-reducer";
+//import {addPostActionCreator, profileReducer, updateNewPostTextAC} from "./profile-reducer";
 //import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
 import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from "./dialogs-reducer";

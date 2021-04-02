@@ -4,7 +4,7 @@ const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 
 const initialState: ProfilePostType = {
     newPostText: "",
@@ -38,6 +38,6 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
 export const addPostActionCreator = (postText: string) => {
     return {type: ADD_POST, postText: postText} as const
 }
-export const updateNewPostTextActionCreator = (postText: string) => {
+export const updateNewPostTextAC = (postText: string) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: postText} as const
 }
