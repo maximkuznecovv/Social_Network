@@ -6,17 +6,18 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {Route} from "react-router-dom";
-import {store} from "./redux/redux-store";
+//import {store} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {SidebarContainer} from "./components/Sidebar/SidebarContainer";
-import {Dispatch} from 'redux';
+import {UsersContainer} from "./components/Users/UsersContainer";
+//import {Dispatch} from 'redux';
 
 
-export type  PropsType = {
-    store: typeof store
-    //store: StoreType
-    dispatch: (action: Dispatch) => void
-}
+// export type  PropsType = {
+//     store: typeof store
+//     //store: StoreType
+//     dispatch: (action: Dispatch) => void
+// }
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
             <div className='app-wrapper-content'>
                 <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                 <Route path='/profile' render={() => <Profile/>}/>
+                <Route path='/users' render={() => <UsersContainer />}/>
 
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
