@@ -6,15 +6,16 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {Route} from "react-router-dom";
-import {store, ActionsType} from "./redux/redux-store";
+import {store} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {SidebarContainer} from "./components/Sidebar/SidebarContainer";
+import {Dispatch} from 'redux';
 
 
 export type  PropsType = {
     store: typeof store
     //store: StoreType
-    dispatch: (action: ActionsType) => void
+    dispatch: (action: Dispatch) => void
 }
 
 const App = () => {

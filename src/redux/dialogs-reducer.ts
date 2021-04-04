@@ -1,11 +1,13 @@
-import {ActionsType} from "./redux-store";
+//import {ActionsType} from "./redux-store";
 
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 const SEND_MESSAGE = 'SEND_MESSAGE'
 
-export type AddMessageActionType = ReturnType<typeof sendMessageAC>
-export type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
+/*export type AddMessageActionType = ReturnType<typeof sendMessageAC>
+export type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>*/
+
+type ActionsType = ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 
 type MessageType = {
     id: number

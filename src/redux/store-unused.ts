@@ -1,6 +1,8 @@
-import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
-import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from "./dialogs-reducer";
-import {sidebarReducer} from "./sidebar-reducer";
+//import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
+//import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from "./dialogs-reducer";
+//import {sidebarReducer} from "./sidebar-reducer";
+import React from 'react';
+
 
  type MessageType = {
     id: number
@@ -43,14 +45,14 @@ import {sidebarReducer} from "./sidebar-reducer";
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: ActionsType) => void
+    // dispatch: (action: ActionsType2) => void
 }
 
 
- type ActionsType = AddPostActionType
+ /*type ActionsType2 = AddPostActionType
     | UpdateNewPostTextActionType
     | AddMessageActionType
-    | UpdateNewDialogMessageActionType
+    | UpdateNewDialogMessageActionType*/
 
  let storeUnused: StoreType = { //OOP
     _state: {
@@ -97,14 +99,14 @@ import {sidebarReducer} from "./sidebar-reducer";
     },
 
     //dispatch action - отправить обьект (действие)
-    dispatch(action) {
+    /*dispatch(action) {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
         this._callSubscriber()
-    }
+    }*/
 }
 
 

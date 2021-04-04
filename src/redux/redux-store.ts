@@ -1,12 +1,12 @@
 import {combineReducers, createStore} from "redux";
-import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from './profile-reducer';
-import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from './dialogs-reducer';
+import { profileReducer} from './profile-reducer';
+import { dialogsReducer} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 
-export type ActionsType = AddPostActionType
-    | UpdateNewPostTextActionType
-    | AddMessageActionType
-    | UpdateNewDialogMessageActionType;
+// export type ActionsType = AddPostActionType
+//     | UpdateNewPostTextActionType
+//     | AddMessageActionType
+//     | UpdateNewDialogMessageActionType;
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
