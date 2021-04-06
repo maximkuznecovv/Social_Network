@@ -3,37 +3,21 @@ export const UNFOLLOW = 'UNFOLLOW'
 export const SET_USERS = 'SET_USERS'
 
 
-export type UsersInitialStatePropsType = {
-    id: number
-    photoUrl: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
-    },
+ export type UsersInitialStatePropsType = {
+"name": string
+"id": number
+"uniqueUrlName": string | null
+"photos": {
+    "small": string | null
+    "large": string | null
+},
+"status": string | null
+"followed": boolean
 }
 
+
 const initialState = {
-    users: [
-        // {
-        //     id: 1,
-        //     photoUrl: '',
-        //     followed: false,
-        //     fullName: 'Max',
-        //     status: 'I am a boss',
-        //     location: {city: 'Kiev', country: 'Ukraine'},
-        // },
-        // {
-        //     id: 2,
-        //     photoUrl: '',
-        //     followed: true,
-        //     fullName: 'Dimych',
-        //     status: 'I am not a boss',
-        //     location: {city: 'Moscow', country: 'Russia'},
-        // },
-    ] as UsersInitialStatePropsType[]
+        users: [] as UsersInitialStatePropsType[]
 }
 
 export type UsersInitialStateType = typeof initialState
