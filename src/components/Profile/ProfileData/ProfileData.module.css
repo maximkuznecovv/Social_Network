@@ -1,0 +1,21 @@
+.descriptionBlock {
+    padding: 10px;
+}
+img {
+    width: 960px;
+}
+.profileData img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.wrapperContacts {
+    display: flex;
+}
+.contacts {
+    padding: 5px;
+}
+.contacts:nth-child(1) {
+    font-weight: bold;
+}

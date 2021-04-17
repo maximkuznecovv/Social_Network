@@ -1,18 +1,14 @@
 import React from 'react';
 import s from './Profile.module.css';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {AppStateType} from '../../redux/redux-store';
+import ProfileData from './ProfileData/ProfileData';
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {ProfilePropsType} from "./ProfileContainer'";
 
-type ProfilePropsType = {
-    store: AppStateType
-}
-
-const Profile = () => {
+const Profile = (props: ProfilePropsType) => {
 
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileData profile={props.profile}/>
             <MyPostsContainer/>
         </div>
     )

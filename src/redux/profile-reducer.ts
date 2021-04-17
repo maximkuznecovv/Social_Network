@@ -1,21 +1,36 @@
-//import {ActionsType} from './redux-store';
+export enum PROFILE_ACTION_TYPE {
+    ADD_POST = 'ADD-POST',
+    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
+    SET_USER_PROFILE = 'SET_PROFILE_INFO-NEW-POST-TEXT',
+}
 
-const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
-
-// export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-// export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 
 export type PostType = {
     id: number
     message: string
     likesCount: number
 }
-/*export type ProfilePostType = {
-    newPostText: string
-    posts: Array<PostType>
-}*/
-
+export type ProfileType = {
+    'aboutMe': string | null
+    'contacts': {
+        'facebook': string | null
+        'website': string | null
+        'vk': string | null
+        'twitter': string | null
+        'instagram': string | null
+        'youtube': string | null
+        'github': string | null
+        'mainLink': string | null
+    },
+    'lookingForAJob': string | null
+    'lookingForAJobDescription': string | null
+    'fullName': string | null
+    'userId': number
+    'photos': {
+        'small': string | null
+        'large': string | null
+    }
+}
 
 const initialState = {
     newPostText: "",
@@ -23,15 +38,16 @@ const initialState = {
         {id: 1, message: "Hi, how are you?", likesCount: 12},
         {id: 2, message: "It's my first post", likesCount: 11},
     ] as PostType[],
+    profile: null as ProfileType | null,
 }
 export type ProfileReducerInitialStateType = typeof initialState
 
-type ActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextAC>
+//type ActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextAC>
 
 export const profileReducer = (state: ProfileReducerInitialStateType = initialState, action: ActionsType): ProfileReducerInitialStateType => {
 
     switch (action.type) {
-        case ADD_POST:
+        case PROFILE_ACTION_TYPE.ADD_POST:
             const newPost: PostType = {
                 id: new Date().getTime(),
                 message: state.newPostText,
@@ -42,20 +58,42 @@ export const profileReducer = (state: ProfileReducerInitialStateType = initialSt
                 return {
                     ...state,
                     posts: [...state.posts, newPost],
-                    newPostText: ''
+                    newPostText: ""
                 }
             }
             return state;
-        case UPDATE_NEW_POST_TEXT:
-            return {...state, newPostText: action.newText}
+        case PROFILE_ACTION_TYPE.UPDATE_NEW_POST_TEXT:
+            return {
+                ...state,
+                newPostText: action.newText
+            }
+        case PROFILE_ACTION_TYPE.SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
     }
 }
 
+type ActionsType = ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>
+
 export const addPostActionCreator = () => {
+    return {type: PROFILE_ACTION_TYPE.ADD_POST} as const
+}
+export const updateNewPostTextAC = (postText: string) => {
+    return {type: PROFILE_ACTION_TYPE.UPDATE_NEW_POST_TEXT, newText: postText} as const
+}
+export const setUserProfile = (profile: ProfileType) => {
+    return {type: PROFILE_ACTION_TYPE.SET_USER_PROFILE, profile} as const
+}
+
+/*export const addPostActionCreator = () => {
     return {type: ADD_POST} as const
 }
 export const updateNewPostTextAC = (postText: string) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: postText} as const
-}
+}*/
