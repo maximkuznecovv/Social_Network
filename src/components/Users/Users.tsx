@@ -1,5 +1,5 @@
 import React from "react";
-import userPhoto from "../../assets/images/user.png"
+import userPhoto from "../../assets/images/userPhoto.png"
 import styles from "./UsersContainer.module.css"
 import {ResponseItemType} from "./UsersContainer";
 import { NavLink } from 'react-router-dom';
