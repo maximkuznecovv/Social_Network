@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Users} from './Users';
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "../../redux/store";
 import {
     follow,
     setCurrentPage,
@@ -88,35 +88,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isFetching: state.usersPage.isFetching,
     }
 }
-/*type MapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (state: UsersInitialStatePropsType[]) => void
-    setCurrentPage: (page: number) => void
-    setTotalUsersCount: (page: number) => void
-    setIsFetching: (isFetching: boolean) => void
-}
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        follow(userID: number) {
-            dispatch(followAC(userID))
-        },
-        unfollow(userID: number) {
-            dispatch(unfollowAC(userID))
-        },
-        setUsers(state: UsersInitialStatePropsType[]) {
-            dispatch(setUsersAC(state))
-        },
-        setCurrentPage(page: number) {
-            dispatch(setCurrentPageAC(page))
-        },
-        setTotalUsersCount(totalCount: number) {
-            dispatch(setUsersTotalCountAC(totalCount))
-        },
-        setIsFetching(isFetching: boolean) {
-            dispatch(setIsFetchingAC(isFetching))
-        },
-    }*/
+
 const mapDispatchToProps2 = {
     follow,
     unfollow,
