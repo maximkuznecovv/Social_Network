@@ -1,68 +1,48 @@
 import React from "react";
 import userPhoto from "../../assets/images/userPhoto.png"
 import styles from "./UsersContainer.module.css"
-import {ResponseItemType} from "./UsersContainer";
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import {NavLink} from "react-router-dom";
+import {ResponseItemType} from "../../API/api";
 
 type PropsType = {
     users: ResponseItemType[]
     totalCount: number,
     pageSize: number
     currentPage: number
+    followingInProgress: number[]
     follow: (id: number) => void
     unfollow: (id: number) => void
     onPageChanged: (page: number) => void
 }
 
 export const Users: React.FC<PropsType> = (props) => {
-
     const UsersEl = props.users.map((u) => {
         return (
             <div key={u.id}>
                 <div>
                     <NavLink to={`profile/${u.id}`}><img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                                         className={styles.userPhoto} alt={'Avatar'}/></NavLink>
+                                                         className={styles.userPhoto} alt={"Avatar"}/></NavLink>
                 </div>
                 <div>
                     {u.followed
-                        ? <button onClick={() => {
+                        ? <button disabled={props.followingInProgress.some((id: number) => id === u.id)}
+                                  onClick={() => {
+                                      props.unfollow(u.id)
+                                  }}>Unfollow</button>
 
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                    withCredentials: true,
-                                    headers: {
-                                        'API-KEY': 'd3770eb8-29c4-4795-b7e7-7e0c4402b534'
-                                    }
-                                }
-                            )
-                                .then((response) => {
-                                    if (response.data.resultCode === 0) {
-                                        props.unfollow(u.id)
-                                    }
-                                })
-                        }}>Unfollow</button>
-                        : <button onClick={() => {
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                    withCredentials: true,
-                                    headers: {
-                                        'API-KEY': 'd3770eb8-29c4-4795-b7e7-7e0c4402b534'
-                                    }
-                                }
-                            )
-                                .then((response) => {
-                                    if (response.data.resultCode === 0) {
-                                        props.follow(u.id)
-                                    }
-                                })
-                        }}>Follow</button>}
+
+                        : <button disabled={props.followingInProgress.some((id: number) => id === u.id)}
+                                  onClick={() => {
+                                      props.follow(u.id)
+                                  }}>Follow</button>}
                 </div>
                 <div>
                     <div>{u.name}</div>
                     <div>{u.status}</div>
                 </div>
                 <div>
-                    <div>{'u.location.country'}</div>
-                    <div>{'u.location.city'}</div>
+                    <div>{"u.location.country"}</div>
+                    <div>{"u.location.city"}</div>
                 </div>
             </div>
         )
@@ -81,7 +61,7 @@ export const Users: React.FC<PropsType> = (props) => {
             {pages.map(page => {
                 return <span
                     key={page}
-                    className={props.currentPage === page ? styles.selectedPage : ''}
+                    className={props.currentPage === page ? styles.selectedPage : ""}
                     onClick={() => {
                         props.onPageChanged(page)
                     }}
