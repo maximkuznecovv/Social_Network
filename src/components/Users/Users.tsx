@@ -3,6 +3,7 @@ import userPhoto from "../../assets/images/userPhoto.png"
 import styles from "./UsersContainer.module.css"
 import {ResponseItemType} from "./UsersContainer";
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 type PropsType = {
     users: ResponseItemType[]
@@ -26,10 +27,33 @@ export const Users: React.FC<PropsType> = (props) => {
                 <div>
                     {u.followed
                         ? <button onClick={() => {
-                            props.unfollow(u.id)
+
+                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                    withCredentials: true,
+                                    headers: {
+                                        'API-KEY': 'd3770eb8-29c4-4795-b7e7-7e0c4402b534'
+                                    }
+                                }
+                            )
+                                .then((response) => {
+                                    if (response.data.resultCode === 0) {
+                                        props.unfollow(u.id)
+                                    }
+                                })
                         }}>Unfollow</button>
                         : <button onClick={() => {
-                            props.follow(u.id)
+                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                    withCredentials: true,
+                                    headers: {
+                                        'API-KEY': 'd3770eb8-29c4-4795-b7e7-7e0c4402b534'
+                                    }
+                                }
+                            )
+                                .then((response) => {
+                                    if (response.data.resultCode === 0) {
+                                        props.follow(u.id)
+                                    }
+                                })
                         }}>Follow</button>}
                 </div>
                 <div>
@@ -37,8 +61,8 @@ export const Users: React.FC<PropsType> = (props) => {
                     <div>{u.status}</div>
                 </div>
                 <div>
-                    <div>{"u.location.country"}</div>
-                    <div>{"u.location.city"}</div>
+                    <div>{'u.location.country'}</div>
+                    <div>{'u.location.city'}</div>
                 </div>
             </div>
         )
@@ -57,7 +81,7 @@ export const Users: React.FC<PropsType> = (props) => {
             {pages.map(page => {
                 return <span
                     key={page}
-                    className={props.currentPage === page ? styles.selectedPage : ""}
+                    className={props.currentPage === page ? styles.selectedPage : ''}
                     onClick={() => {
                         props.onPageChanged(page)
                     }}
@@ -67,4 +91,3 @@ export const Users: React.FC<PropsType> = (props) => {
         </div>
     </>
 }
-
