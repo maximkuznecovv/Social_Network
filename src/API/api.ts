@@ -1,34 +1,33 @@
-import axios from 'axios';
-import {ProfileType} from '../redux/profile-reducer';
+import axios from "axios";
+import {ProfileType} from "../redux/profile-reducer";
 
 export type ResponseItemType = {
-    'name': string
-    'id': number
-    'uniqueUrlName': null | string
-    'photos': {
-        'small': null | string
-        'large': null | string
+    "name": string
+    "id": number
+    "uniqueUrlName": null | string
+    "photos": {
+        "small": null | string
+        "large": null | string
     },
-    'status': null | string
-    'followed': boolean
+    "status": null | string
+    "followed": boolean
 }
 export type ServerData = {
-    'items': ResponseItemType[]
-    'totalCount': number
-    'error': null | string
+    "items": ResponseItemType[]
+    "totalCount": number
+    "error": null | string
 }
 type ResponseType = {
     data: ServerData
 }
 
 const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    baseURL: "https://social-network.samuraijs.com/api/1.0/",
     withCredentials: true,
     headers: {
-        'API-KEY': 'd3770eb8-29c4-4795-b7e7-7e0c4402b534'
+        "API-KEY": "d3770eb8-29c4-4795-b7e7-7e0c4402b534"
     }
 })
-
 
 
 export const usersAPI = {
@@ -45,7 +44,6 @@ export const usersAPI = {
             .then((response) => response.data)
     },
 }
-
 
 
 export const profileAPI = {
@@ -69,20 +67,23 @@ type AuthResponseType = {
         login: string
         email: string
     }
-    'messages': [],
-    'fieldsErrors': [],
-    'resultCode': 0
+    "messages": string[],
+    "fieldsErrors": [],
+    "resultCode": number
 }
 
-export const authAPI =  {
+export const authAPI = {
     me: () => {
         return instance.get<AuthResponseType>(`auth/me`)
     },
-    login: (email: string,password: string,rememberMe: boolean,) => {
-        return instance.post(`auth/login`, {
+    login: (email: string, password: string, rememberMe: boolean = false,) => {
+        return instance.post<AuthResponseType>(`auth/login`, {
             email,
             password,
             rememberMe,
         })
+    },
+    logout: () => {
+        return instance.delete(`auth/login`)
     },
 }

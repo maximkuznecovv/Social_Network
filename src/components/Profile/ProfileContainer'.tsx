@@ -6,6 +6,8 @@ import {getStatus, getUserProfile, ProfileType, updateStatus} from '../../redux/
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
+import {authInitialStatePropsType} from '../../redux/auth-reducer';
+
 
 type PathParamsType = {
     userId: string
@@ -20,15 +22,14 @@ class ProfileContainer extends React.Component<PropsType> {
         let userId = this.props.match.params.userId
         debugger
          if (!userId) {
-             userId = '16187'
+             //userId = '16187'
+             userId = this.props.auth.id ? this.props.auth.id.toString() : ''
+
          }
         this.props.getStatus(userId)
     }
 
     render() {
-        // if (!this.props.isAuth) {
-        //     return <Redirect to={'/login'}/>
-        // }
         return <Profile {...this.props}
                         profile={this.props.profile}
                         status={this.props.status}
@@ -41,13 +42,16 @@ class ProfileContainer extends React.Component<PropsType> {
 type MapStateToPropsType = {
     profile: ProfileType | null
     status: string
+    auth: authInitialStatePropsType
+
 }
 export type ProfilePropsType = ConnectedProps<typeof connector>;
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        auth: state.auth
     }
 }
 

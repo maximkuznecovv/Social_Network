@@ -2,7 +2,6 @@ import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
-//import AddNewPostForm, { NewPostFormDataType } from "./AddNewPostForm";
 import AddNewPostForm, {NewPostFormDataType} from './AddNewPostForm';
 
 
