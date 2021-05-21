@@ -1,7 +1,9 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
+//import AddNewPostForm, { NewPostFormDataType } from "./AddNewPostForm";
+import AddNewPostForm, {NewPostFormDataType} from './AddNewPostForm';
 
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -13,28 +15,15 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             likesCount={p.likesCount}/>)
 
 
-    const onAddPost = () => {
-        props.addPost()
-    }
-
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const text = e.currentTarget.value
-        props.updateNewPostText(text)
-
+    const onAddPost = (formData: NewPostFormDataType) => {
+        props.addPost(formData.pastText)
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My Posts</h3>
             <div>
-                <div>
-                    <textarea onChange={onPostChange}
-                              value={props.newPostText}></textarea>
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-
+                <AddNewPostForm onSubmit={onAddPost}/>
             </div>
             <div className={s.posts}>
                 {postsElement}
