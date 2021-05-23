@@ -16,22 +16,7 @@ import {initializeApp} from './redux/app-reducer';
 import {AppStateType} from './redux/store';
 import {Preloader} from './components/common/Preloader/Preloader';
 
-/*const App = () => {
 
-    return (
-        <HashRouter>
-            <div className='app-wrapper'>
-                <HeaderContainer />
-                <SidebarContainer/>
-                <div className='app-wrapper-content'>
-                    <Route path="/login" render={() => <LoginPage/>}/>
-                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                    <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
-
-                    <Route path='/news' render={() => <News/>}/>
-                    <Route path='/music' render={() => <Music/>}/>
-                    <Route path='/settings' render={() => <Settings/>}/>*/
 class App extends React.Component<any> {
     componentDidMount() {
         this.props.initializeApp()
