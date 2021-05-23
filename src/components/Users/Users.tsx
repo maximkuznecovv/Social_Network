@@ -15,7 +15,7 @@ type PropsType = {
     onPageChanged: (page: number) => void
 }
 
-export const Users: React.FC<PropsType> = (props) => {
+const Users: React.FC<PropsType> = (props) => {
     const UsersEl = props.users.map((u) => {
         return (
             <div key={u.id}>
@@ -71,3 +71,5 @@ export const Users: React.FC<PropsType> = (props) => {
         </div>
     </>
 }
+
+export default Users

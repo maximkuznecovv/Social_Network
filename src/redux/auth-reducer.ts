@@ -1,10 +1,10 @@
-import {authAPI} from '../API/api';
+import {authAPI} from "../API/api";
 import {AppThunkType} from "./store";
-import {stopSubmit} from 'redux-form';
+import {stopSubmit} from "redux-form";
 
 export enum USERS_ACTIONS {
-    SET_USER_DATA = 'SET_USER_DATA',
-    SET_AUTH_ERROR = 'SET_AUTH_ERROR',
+    SET_USER_DATA = "SET_USER_DATA",
+    SET_AUTH_ERROR = "SET_AUTH_ERROR",
 
 }
 
@@ -77,7 +77,6 @@ export const getAuthUserData = (): AppThunkType => async dispatch => {
             const {id, login, email} = response.data.data
             dispatch(setAuthUserData(id, login, email, true))
         }
-
     } catch (e) {
         throw new Error()
     }
@@ -89,8 +88,8 @@ export const login = (email: string, password: string, rememberMe: boolean): App
         if (response.data.resultCode === 0) {
             return dispatch(getAuthUserData())
         } else {// return dispatch(setAuthError(response.data.messages[0]))
-            const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
-            return dispatch(stopSubmit('Login', {_error: message}))
+            const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+            return dispatch(stopSubmit("Login", {_error: message}))
         }
 
     } catch (e) {

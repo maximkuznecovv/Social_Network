@@ -1,46 +1,46 @@
 //import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
 //import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from "./dialogs-reducer";
 //import {sidebarReducer} from "./sidebar-reducer";
-import React from 'react';
+import React from "react";
 
 
- type MessageType = {
+type MessageType = {
     id: number
     message: string
 }
- type DialogType = {
+type DialogType = {
     id: number
     name: string
 }
- type PostType = {
+type PostType = {
     id: number
     message: string
     likesCount: number
 }
- type ProfilePostType = {
+type ProfilePostType = {
     posts: Array<PostType>
     newPostText: string
 }
- type DialogsPropsType = {
+type DialogsPropsType = {
     newMessageBody: string
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
- type FriendsType = {
+type FriendsType = {
     id: number
     name: string
 }
- type SidebarType = {
+type SidebarType = {
     friends: Array<FriendsType>
 }
- type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePostType
     dialogsPage: DialogsPropsType
     sidebar: SidebarType
 }
 
 
- type StoreType = {
+type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
@@ -49,12 +49,12 @@ import React from 'react';
 }
 
 
- /*type ActionsType2 = AddPostActionType
-    | UpdateNewPostTextActionType
-    | AddMessageActionType
-    | UpdateNewDialogMessageActionType*/
+/*type ActionsType2 = AddPostActionType
+   | UpdateNewPostTextActionType
+   | AddMessageActionType
+   | UpdateNewDialogMessageActionType*/
 
- let storeUnused: StoreType = { //OOP
+let storeUnused: StoreType = { //OOP
     _state: {
         profilePage: {
             newPostText: "",

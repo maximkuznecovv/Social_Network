@@ -3,21 +3,21 @@ import "./App.css";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {HashRouter, Route, withRouter} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {SidebarContainer} from "./components/Sidebar/SidebarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from './components/Login/LoginPage';
-import {compose} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
-import {initializeApp} from './redux/app-reducer';
-import {AppStateType} from './redux/store';
-import {Preloader} from './components/common/Preloader/Preloader';
+import LoginPage from "./components/Login/LoginPage";
+import {compose} from "redux";
+import {connect, ConnectedProps} from "react-redux";
+import {initializeApp} from "./redux/app-reducer";
+import {AppStateType} from "./redux/store";
+import {Preloader} from "./components/common/Preloader/Preloader";
 
 
-class App extends React.Component<any> {
+class App extends React.Component<AppPropsType> {
     componentDidMount() {
         this.props.initializeApp()
     }
@@ -28,22 +28,20 @@ class App extends React.Component<any> {
         }
 
         return (
-            <HashRouter>
-                <div className="app_wrapper">
-                    <HeaderContainer/>
-                    <SidebarContainer/>
-                    <div className={'app_wrapper_content'}>
-                        <Route path="/login" render={() => <LoginPage/>}/>
-                        <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                        <Route path='/users' render={() => <UsersContainer/>}/>
+            <div className='app_wrapper'>
+                <HeaderContainer/>
+                <SidebarContainer/>
+                <div className={'app_wrapper_content'}>
+                    <Route path='/login' render={() => <LoginPage/>}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                    <Route path='/users/:userId?' render={() => <UsersContainer/>}/>
 
-                        <Route path='/news' render={() => <News/>}/>
-                        <Route path='/music' render={() => <Music/>}/>
-                        <Route path='/settings' render={() => <Settings/>}/>
-                    </div>
+                    <Route path='/news' render={() => <News/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
                 </div>
-            </HashRouter>
+            </div>
         );
     }
 }

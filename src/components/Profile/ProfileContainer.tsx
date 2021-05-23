@@ -1,10 +1,10 @@
-import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import Profile from './Profile';
-import {AppStateType} from '../../redux/store';
-import {getStatus, getUserProfile, ProfileType, updateStatus} from '../../redux/profile-reducer';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {compose} from 'redux';
+import React from "react";
+import {connect, ConnectedProps} from "react-redux";
+import Profile from "./Profile";
+import {AppStateType} from "../../redux/store";
+import {getStatus, getUserProfile, ProfileType, updateStatus} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
 type PathParamsType = {
@@ -19,11 +19,14 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         debugger
-         if (!userId) {
-             //userId = '16187'
-             userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ''
-
-         }
+        if (!userId) {
+            //userId = '16187'
+            userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ""
+            if (!userId) {
+                this.props.history.push("/login")
+            }
+        }
+        this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
 

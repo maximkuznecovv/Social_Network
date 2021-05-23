@@ -72,7 +72,7 @@ const ProfileContacts = (props: ProfileContactsType) => {
     const netWork = Object.keys(props.contacts)
     const netWorkLinks = Object.values(props.contacts)
 
-    netWork.map(key => (<div>{key}</div>))
+    netWork.map(key => (<div key={key}>{key}</div>))
 
     return (
         <div className={styles.wrapperContacts}>
@@ -88,7 +88,7 @@ const ProfileContacts = (props: ProfileContactsType) => {
 
             <div className={styles.contacts}>{netWorkLinks.map(value => {
                 return (
-                    <div>
+                    <div key={value}>
                         {value ? value : "Не заполнено"}
                     </div>
                 )
