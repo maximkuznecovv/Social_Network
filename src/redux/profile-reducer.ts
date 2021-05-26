@@ -1,11 +1,11 @@
-import {profileAPI} from '../API/api';
+import {profileAPI} from "../API/api";
 import {AppThunkType} from "./store";
 
 
 export enum PROFILE_ACTION_TYPE {
-    ADD_POST = 'APP/PROFILE/ADD-POST',
-    SET_USER_PROFILE = 'APP/PROFILE/SET_PROFILE_INFO-NEW-POST-TEXT',
-    SET_STATUS = 'APP/PROFILE/SET_STATUS',
+    ADD_POST = "APP/PROFILE/ADD-POST",
+    SET_USER_PROFILE = "APP/PROFILE/SET_PROFILE_INFO-NEW-POST-TEXT",
+    SET_STATUS = "APP/PROFILE/SET_STATUS",
 }
 
 export type PostType = {
@@ -14,24 +14,24 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
-    'aboutMe': string | null
-    'contacts': {
-        'facebook': string | null
-        'website': string | null
-        'vk': string | null
-        'twitter': string | null
-        'instagram': string | null
-        'youtube': string | null
-        'github': string | null
-        'mainLink': string | null
+    "aboutMe": string | null
+    "contacts": {
+        "facebook": string | null
+        "website": string | null
+        "vk": string | null
+        "twitter": string | null
+        "instagram": string | null
+        "youtube": string | null
+        "github": string | null
+        "mainLink": string | null
     },
-    'lookingForAJob': string | null
-    'lookingForAJobDescription': string | null
-    'fullName': string | null
-    'userId': number
-    'photos': {
-        'small': string | null
-        'large': string | null
+    "lookingForAJob": string | null
+    "lookingForAJobDescription": string | null
+    "fullName": string | null
+    "userId": number
+    "photos": {
+        "small": string | null
+        "large": string | null
     }
 }
 
@@ -41,7 +41,7 @@ let initialState = {
         {id: 2, message: "It's my first post", likesCount: 11},
     ] as PostType[],
     profile: null as ProfileType | null,
-    status: '',
+    status: "",
 }
 export type ProfileReducerInitialStateType = typeof initialState
 
@@ -121,6 +121,14 @@ export const updateStatus = (status: string): AppThunkType => async dispatch => 
         throw new Error()
     }
 }
+
+/*export const updateStatus = (status: string): AppThunkType => dispatch => {
+    profileAPI.updateStatus(status).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    })
+}*/
 
 
 // const handlers = {
